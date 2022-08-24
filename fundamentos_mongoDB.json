@@ -1,0 +1,126 @@
+#criando banco de dados 'pessoasData'
+> use pessoasData
+
+#criando colection(Tabela) Mateus
+> db.pessoas.insertOne({ nome: "Mateus", idade: 30, profissao: "Programador", esta_empregado: true })
+
+#criando colection 'carros'
+> db.carros.insertOne({ marca: 'Ferrari" })
+
+#inserindo mutiplos dados
+> db.pessoas.insertMany([
+    { nome: "João", idade: 40, profissao: "Arquiteto", esta_empregado: false },
+    { nome: "Maria", idade: 23, profissao: "Professora", esta_empregado: true }
+])
+
+#visualisando dados inseridos
+> db.pessoas.find()
+
+#visualisação de forma mais organizada
+> db.pessoas.find().pretty()
+
+#visualizando quem esta empregado
+> db.pessoas.find({ esta_empregado: true })
+
+#contando quantas pessoas estão empregadas
+> db.pessoas.find({ esta_empregado: true }).count()
+
+#contando quantas pessoas tem cadastradas
+> db.pessoas.find().count()
+
+#Selecionando João
+> db.pessoas.findOne({ nome: "João" })
+
+#Atualizando dados
+> db.pessoas.updateOne({ nome: "João" }, { $set: { esta_empregado: true } })
+
+#Visualizando os dados
+> db.pessoas.find().pretty()
+
+#Atualizar vários dados de uma unica vez, e add nova chave
+> db.pessoas.updateMany({}, {$set: { salario: 5000 } })
+
+#Visualizando os dados
+> db.pessoas.find().pretty()
+
+#Atualizando Mateus
+> db.pessoas.updateOne({nome: "Mateus"}, {$set: { procurando_emprego: false }})
+
+#Visualizando os dados
+> db.pessoas.find().pretty()
+
+#Incerindo Josias
+> db.pessoas.insertOne({ name: "Josias" })
+
+#Visualizando os dados
+> db.pessoas.find().pretty()
+
+#deletando Josias
+> db.pessoas.deleteOne({ name: "Josias" })
+
+#deletando varios dados com nome de Josias
+> db.pessoas.deleteMany({ name: "Josias" })
+
+#operadores, maior que 30
+> db.pessoas.find({ idade: { $gt: 30 } })
+
+#maior ou igual
+> db.pessoas.find({ idade: { $gte: 30 } })
+
+#menor que
+> db.pessoas.find({ idade: { $lt: 30 } })
+
+#menor ou igual
+> db.pessoas.find({ idade: { $lte: 30 } })
+
+#atualizando dados de quem tem mais de 35 anos, vai ter prioridade
+> db.pessoas.updateMany({ idade: { $gt: 35 } }, { $set: { prioridade: true } })
+
+#inserindo dados mais complexos
+> db.pessoas.insertOne({
+    nome: "Paula",
+    idade: 44,
+    hobbies: ["Correr", "Ler", "Trilhas"],
+    esta_trabalhando: true,
+    data_cadastro: new Date(),
+    caracteristicas: {
+        cor_dos_olhos: "azuis",
+        altura: 1.82,
+        perfil: "extrovertida"
+    }
+})
+
+#visualizando dados
+> db.pessoas.find().pretty()
+
+#operadores de apdate
+#incremento +1000
+> db.pessoas.updateOne({ nome: "Mateus" }, { $inc: { salario: 1000 } })
+
+#decremento -3000 João
+> db.pessoas.updateOne({ nome: "João" }, { $inc: { salario: -3000 } })
+
+#criando indice
+> db.pessoas.createIndex({ "nome": 1 })
+
+#visualizando indices
+> db.pessoas.getIndexes()
+
+#como saber se o mongodb esta usando o indice, se melhorou realmente o desempenho
+> db.pessoas.explain().find({ nome: "João" })
+
+#deletar indice
+> db.pessoas.dropIndex("nome_1")
+
+#deletando colection 'pessoas'
+> db.pessoas.drop()
+
+#visualizar as colections
+> show collections
+
+#deletando o banco
+> db.dropDatabase()
+
+#visualizar databases
+> show dbs
+
